@@ -189,6 +189,14 @@ export function extractCreateTimeFromPng(filePath) {
   const buffer = fs.readFileSync(filePath);
   const chunks = readTextChunks(buffer);
 
+  // If create_time itself is stored as the PNG text keyword, use its value directly.
+  for (const chunk of chunks) {
+    if (normalizeKey(chunk.keyword) === "createtime") {
+      const direct = String(chunk.text || "").trim();
+      if (direct) return direct;
+    }
+  }
+
   // Character-card PNGs commonly use a "chara" text chunk, but scan every
   // textual chunk so Tavo-specific or future-compatible keywords also work.
   const ordered = [...chunks].sort((a, b) => {
@@ -251,7 +259,7 @@ export function extractCreateTimes({ root = process.cwd(), worksFile = "src/data
   };
 }
 
-if (import.meta.url === new URL(`file://${process.argv[1]}`).href) {
+if (process.argv[1] && import.meta.url === new URL(`file://${path.resolve(process.argv[1])}`).href) {
   const result = extractCreateTimes();
   process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
   if (result.errors.length) process.exitCode = 1;
