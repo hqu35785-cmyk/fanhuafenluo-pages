@@ -2,6 +2,9 @@
 
 角色卡静态档案站，部署于 GitHub Pages。
 
+- 在线网站：<https://hqu35785-cmyk.github.io/fanhuafenluo-pages/>
+- 源代码仓库：<https://github.com/hqu35785-cmyk/fanhuafenluo-pages>
+
 ## 结构
 
 - `index.html`：页面骨架。

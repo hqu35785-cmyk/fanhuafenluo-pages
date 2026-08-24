@@ -591,8 +591,8 @@ let webShareWatchdog=0;
  * reliably. Resolve on demand with a short fallback chain (local → jsDelivr → raw).
  */
 const SOURCE_PNG_RE=/^(?:\.\/)?assets\/(?:tavo|shark|wa|source)\//i;
-const REPO_MAIN_REF="hqu35785-cmyk/fanhuafenluo@main";
-const RAW_MAIN_BASE="https://raw.githubusercontent.com/hqu35785-cmyk/fanhuafenluo/main/";
+const REPO_MAIN_REF="hqu35785-cmyk/fanhuafenluo-pages@main";
+const RAW_MAIN_BASE="https://raw.githubusercontent.com/hqu35785-cmyk/fanhuafenluo-pages/main/";
 const JSDELIVR_MAIN_BASE=`https://cdn.jsdelivr.net/gh/${REPO_MAIN_REF}/`;
 
 function normalizeAssetPath(path){
