@@ -213,3 +213,4 @@ function scheduleIdleCatalogPrefetch(){
   if (typeof requestIdleCallback === "function") requestIdleCallback(run, { timeout: 1800 });
   else setTimeout(run, 600);
 }
+
