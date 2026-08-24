@@ -143,7 +143,7 @@ function loadScriptOnce(src){
       return;
     }
     const s = document.createElement("script");
-    s.src = src + (src.includes("?") ? "&" : "?") + "v=direct-card-details-1";
+    s.src = src + (src.includes("?") ? "&" : "?") + "v=7bf0de91321b";
     s.async = true;
     s.dataset.lazySrc = src;
     s.onload = () => { s.dataset.loaded = "1"; resolve(); };
