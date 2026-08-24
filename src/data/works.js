@@ -42,10 +42,7 @@ const latestFanhuaWorks = [
     "sensitiveSetting":false,
     "sensitiveLabel":"敏感卡面",
     "sensitiveSettingLabel":"敏感设定",
-    "_detailKey":"assets/tavo/new/Tavo_%E5%88%BB%E5%BE%8B%E5%BE%B7%E8%8F%88_7B5E.png",
-    "opening":"（雨水顺着老榕树的叶缘滴落，她捏住雨衣领口轻轻一扯——衣料变得完全透明。）我不管你今天愿不愿意，反正我已经受够了……",
-    "personality":"嘴硬心软，像随时准备炸毛的猫。夸她会偏头说「不用你夸」，摸头会躲开，转身却用余光追着你的背影。记得你爱喝的茶、腰上的旧伤，生病时会装作路过端来热粥。",
-    "setting":"仙人收养的弟子系列「逆徒想要冲师」其三。她在你偏心其他弟子的瞬间彻底爆发，雨中穿上特制透明雨衣站到你面前，要求你只看着她。"
+    "_detailKey":"assets/tavo/new/Tavo_%E5%88%BB%E5%BE%8B%E5%BE%B7%E8%8F%88_7B5E.png"
   },
   {
     "name":"云璃",
@@ -61,10 +58,7 @@ const latestFanhuaWorks = [
     "sensitiveSetting":false,
     "sensitiveLabel":"敏感卡面",
     "sensitiveSettingLabel":"敏感设定",
-    "_detailKey":"assets/tavo/new/Tavo_%E4%BA%91%E7%92%83_0DAC.png",
-    "opening":"（云璃站在你面前，金色眼睛直直看着你，捏住雨衣领口往两边拉开，露出里面什么都没穿的身躯。）师父，我不想再等了，我想让你只看着我一个人。",
-    "personality":"直来直去，想要你的目光就光明正大地说出来。练剑练到抬不起手也不肯停。把你对其他弟子的每一次多停顿都记成账，终于在雨里把雨衣拉开。",
-    "setting":"仙人收养的弟子系列「逆徒想要冲师」其二。破败演武场边捡回的女孩，学会用剑也学会了记你的目光停留。雨中特制雨衣，要求你只看着她一个人。"
+    "_detailKey":"assets/tavo/new/Tavo_%E4%BA%91%E7%92%83_0DAC.png"
   },
   {
     "name":"雾矢葵",
@@ -80,10 +74,7 @@ const latestFanhuaWorks = [
     "sensitiveSetting":false,
     "sensitiveLabel":"敏感卡面",
     "sensitiveSettingLabel":"敏感设定",
-    "_detailKey":"assets/tavo/new/Tavo_%E9%9B%BE%E7%9F%A2%E8%91%B5_9813.png",
-    "opening":"（卧室暖黄灯光下，雾矢葵穿着深色水手服跨坐在你腰间。）嗯…哥哥要捏紧点哦，如果没让妹妹满意的话，妹妹可是不会善罢甘休的～",
-    "personality":"从小不爱说话，被领养的哥哥一点点带出壳后，黏人到跟到厨房门口、洗澡门外、钻进被窝。学会了做饭收拾，也学会了用别的方式把哥哥留在身边。",
-    "setting":"「逆妹想上兄」其一。父母常年在外后只剩兄妹二人。从门框后探头的沉默女孩，变成跨坐在哥哥身上、穿着水手服不肯下来的妹妹。"
+    "_detailKey":"assets/tavo/new/Tavo_%E9%9B%BE%E7%9F%A2%E8%91%B5_9813.png"
   }
 ];
 fanhuaWorks.unshift(...latestFanhuaWorks);
@@ -152,7 +143,7 @@ function loadScriptOnce(src){
       return;
     }
     const s = document.createElement("script");
-    s.src = src + (src.includes("?") ? "&" : "?") + "v=v3lazy";
+    s.src = src + (src.includes("?") ? "&" : "?") + "v=direct-card-details-1";
     s.async = true;
     s.dataset.lazySrc = src;
     s.onload = () => { s.dataset.loaded = "1"; resolve(); };
@@ -173,9 +164,7 @@ function applyDetailsToWorks(list){
   for (const w of list) {
     const d = workDetailStore.get(w._detailKey || w.image);
     if (d) {
-      w.opening = d.opening;
-      w.personality = d.personality;
-      w.setting = d.setting;
+      Object.assign(w, d);
       w._detailsReady = true;
     }
   }
