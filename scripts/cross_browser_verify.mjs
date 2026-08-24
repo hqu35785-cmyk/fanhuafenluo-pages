@@ -3,7 +3,7 @@ import path from "path";
 import { chromium, firefox, webkit } from "playwright";
 
 const TARGET =
-  process.env.TEST_URL || "https://hqu35785-cmyk.github.io/fanhuafenluo/index.html";
+  process.env.TEST_URL || "https://hqu35785-cmyk.github.io/fanhuafenluo-pages/index.html";
 
 /** CI isolation: one process = one browser = one viewport = one page. */
 const TEST_BROWSER = (process.env.TEST_BROWSER || "").trim().toLowerCase();
