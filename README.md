@@ -1,6 +1,6 @@
 # 繁花·纷落｜角色档案
 
-角色卡静态档案站，部署于 GitHub Pages。
+四个分区、共 101 张角色卡的静态档案站，部署于 GitHub Pages。
 
 - 在线网站：<https://hqu35785-cmyk.github.io/fanhuafenluo-pages/>
 - 源代码仓库：<https://github.com/hqu35785-cmyk/fanhuafenluo-pages>
@@ -13,7 +13,7 @@
 - `src/styles/main.css`：页面样式。
 - `assets/previews/`：网页展示使用的轻量预览。
 - `assets/authors/`：作者/分区头像。
-- `assets/tavo/`、`assets/shark/`、`assets/wa/`、`assets/source/`：角色卡源 PNG。它们不随 Pages artifact 全量发布，但保存角色卡时会按需从仓库/CDN读取，因此不能仅因体积大而删除。
+- `assets/tavo/`、`assets/shark/`、`assets/wa/`、`assets/public/`、`assets/source/`：角色卡源 PNG。它们不随 Pages artifact 全量发布，但保存角色卡时会按需从仓库/CDN读取，因此不能仅因体积大而删除。
 - `scripts/`：长期构建、资源验证、跨浏览器验证和图片维护工具。
 - `tests/`：站点回归测试。
 

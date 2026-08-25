@@ -32,6 +32,7 @@ jobs:
           node --check src/data/details-fanhua.js
           node --check src/data/details-shark.js
           node --check src/data/details-wa.js
+          node --check src/data/details-public.js
 
       - run: npm run validate:assets
       - run: npm run build:pages
