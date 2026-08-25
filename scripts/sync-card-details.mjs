@@ -12,9 +12,12 @@ const PLACEHOLDER_TEXTS = [
 
 const GROUPS = [
   {id:'fanhuafenluo',arrays:['latestFanhuaWorks','fanhuaWorks'],output:'src/data/details-fanhua.js'},
-  {id:'shark',arrays:['sharkWorks'],output:'src/data/details-shark.js'},
-  {id:'wa',arrays:['waWorks'],output:'src/data/details-wa.js'},
-  {id:'public',arrays:['publicWorks'],output:'src/data/details-public.js'}
+  {id:'public',arrays:['publicWorks','legacySharkWorks','legacyWaWorks'],output:'src/data/details-public.js'}
+];
+
+const STALE_DETAIL_OUTPUTS = [
+  'src/data/details-shark.js',
+  'src/data/details-wa.js'
 ];
 
 function fail(message){
@@ -288,6 +291,17 @@ async function verifyFiles(root,groups,intros){
   if(total!==101) throw new Error(`详情总数错误：应为 101，实际为 ${total}`);
 }
 
+async function verifyStaleOutputsAbsent(root){
+  for(const relativePath of STALE_DETAIL_OUTPUTS){
+    try{
+      await fs.access(path.join(root,relativePath));
+      throw new Error(`旧分区详情文件仍然存在：${relativePath}`);
+    }catch(error){
+      if(error.code!=='ENOENT') throw error;
+    }
+  }
+}
+
 function summary({groups,records,intros}){
   const details=records.map(record=>({record,copy:intros?.[record.detailKey]}));
   const count=predicate=>details.filter(predicate).length;
@@ -334,11 +348,13 @@ async function main(){
   if(mode==='write'){
     const expectedDetails=groups.map(group=>({group,details:buildDetails(group.records,intros)}));
     for(const {group,details} of expectedDetails) await fs.writeFile(path.join(root,group.output),buildFile(group.id,details),'utf8');
+    for(const relativePath of STALE_DETAIL_OUTPUTS) await fs.rm(path.join(root,relativePath),{force:true});
     console.log(JSON.stringify(summary({groups,records,intros}),null,2));
     console.log('write ok');
     return;
   }
 
+  await verifyStaleOutputsAbsent(root);
   await verifyFiles(root,groups,intros);
   console.log(JSON.stringify(summary({groups,records,intros}),null,2));
   console.log('check ok');
