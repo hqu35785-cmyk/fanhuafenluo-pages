@@ -758,71 +758,6 @@ async function runViewport(browserType, browserName, viewport) {
         () => document.querySelectorAll(".card .front:not(.is-locked)").length
       );
 
-      // → 鲨鱼
-      await (async () => {
-        const sw = page.locator("#authorSwitch");
-        await sw.waitFor({ state: "visible", timeout: 10000 });
-        if (browserName === "webkit") await sw.evaluate((el) => el.click());
-        else await sw.click({ timeout: 10000 });
-      })();
-      await page.waitForTimeout(350);
-      const shark = await page.evaluate(() => ({
-        name: document.getElementById("authorName")?.textContent || "",
-        cards: document.querySelectorAll(".card").length,
-        footer: document.getElementById("footerAuthor")?.textContent || "",
-        count: document.getElementById("workCount")?.textContent || "",
-        avatar: document.getElementById("authorAvatar")?.getAttribute("src") || "",
-        toast: document.getElementById("toast")?.textContent || "",
-        empty: !!document.querySelector(".author-empty"),
-      }));
-      const sharkFails = [];
-      if (shark.name !== "鲨鱼") sharkFails.push(["author-name-shark", "鲨鱼", shark.name]);
-      if (shark.cards !== 14) sharkFails.push(["author-cards-shark", 14, shark.cards]);
-      if (shark.empty) sharkFails.push(["author-not-empty-shark", false, shark.empty]);
-      if (shark.footer !== "鲨鱼") sharkFails.push(["author-footer-shark", "鲨鱼", shark.footer]);
-      if (shark.count !== "14") sharkFails.push(["author-count-shark", "14", shark.count]);
-      if (!shark.avatar.includes("assets/authors/shark.webp"))
-        sharkFails.push(["author-avatar-shark", "assets/authors/shark.webp", shark.avatar.slice(0, 60)]);
-      if (!String(shark.toast).includes("鲨鱼"))
-        sharkFails.push(["author-toast-shark", "contains 鲨鱼", shark.toast]);
-      for (const [check, expected, actual] of sharkFails) {
-        rows.push(
-          await captureFailure(page, browserName, viewport, "author-switch-shark", { check, expected, actual }, consoleErrors)
-        );
-      }
-      if (!sharkFails.length) pushOk("author-switch-shark", { beforeCards: before.cards, cards: shark.cards });
-
-      // → 咓
-      await (async () => {
-        const sw = page.locator("#authorSwitch");
-        await sw.waitFor({ state: "visible", timeout: 10000 });
-        if (browserName === "webkit") await sw.evaluate((el) => el.click());
-        else await sw.click({ timeout: 10000 });
-      })();
-      await page.waitForTimeout(350);
-      const wa = await page.evaluate(() => ({
-        name: document.getElementById("authorName")?.textContent || "",
-        cards: document.querySelectorAll(".card").length,
-        footer: document.getElementById("footerAuthor")?.textContent || "",
-        count: document.getElementById("workCount")?.textContent || "",
-        avatar: document.getElementById("authorAvatar")?.getAttribute("src") || "",
-        empty: !!document.querySelector(".author-empty"),
-      }));
-      const waFails = [];
-      if (wa.name !== "咓") waFails.push(["author-name-wa", "咓", wa.name]);
-      if (wa.cards !== 14) waFails.push(["author-cards-wa", 14, wa.cards]);
-      if (wa.empty) waFails.push(["author-not-empty-wa", false, wa.empty]);
-      if (wa.footer !== "咓") waFails.push(["author-footer-wa", "咓", wa.footer]);
-      if (wa.count !== "14") waFails.push(["author-count-wa", "14", wa.count]);
-      if (!wa.avatar.includes("assets/authors/wa.webp"))
-        waFails.push(["author-avatar-wa", "assets/authors/wa.webp", wa.avatar.slice(0, 60)]);
-      for (const [check, expected, actual] of waFails) {
-        rows.push(
-          await captureFailure(page, browserName, viewport, "author-switch-wa", { check, expected, actual }, consoleErrors)
-        );
-      }
-      if (!waFails.length) pushOk("author-switch-wa", { cards: wa.cards });
-
       // → 公开
       await (async () => {
         const sw = page.locator("#authorSwitch");
@@ -837,19 +772,24 @@ async function runViewport(browserType, browserName, viewport) {
         footer: document.getElementById("footerAuthor")?.textContent || "",
         count: document.getElementById("workCount")?.textContent || "",
         avatar: document.getElementById("authorAvatar")?.getAttribute("src") || "",
-        names: [...document.querySelectorAll(".card .card-name b")].map((element) => element.textContent?.trim() || ""),
+        names: [...document.querySelectorAll(".card .card-name b")]
+          .slice(0, 6)
+          .map((element) => element.textContent?.trim() || ""),
+        toast: document.getElementById("toast")?.textContent || "",
         empty: !!document.querySelector(".author-empty"),
       }));
       const publicFails = [];
       if (publicSection.name !== "公开") publicFails.push(["author-name-public", "公开", publicSection.name]);
-      if (publicSection.cards !== 3) publicFails.push(["author-cards-public", 3, publicSection.cards]);
+      if (publicSection.cards !== 31) publicFails.push(["author-cards-public", 31, publicSection.cards]);
       if (publicSection.empty) publicFails.push(["author-not-empty-public", false, publicSection.empty]);
       if (publicSection.footer !== "公开") publicFails.push(["author-footer-public", "公开", publicSection.footer]);
-      if (publicSection.count !== "03") publicFails.push(["author-count-public", "03", publicSection.count]);
+      if (publicSection.count !== "31") publicFails.push(["author-count-public", "31", publicSection.count]);
       if (!publicSection.avatar.includes("assets/authors/public.webp"))
         publicFails.push(["author-avatar-public", "assets/authors/public.webp", publicSection.avatar.slice(0, 60)]);
-      if (JSON.stringify(publicSection.names) !== JSON.stringify(["调月莉音", "认知修改·后宫性生活", "星野"]))
-        publicFails.push(["author-names-public", ["调月莉音", "认知修改·后宫性生活", "星野"], publicSection.names]);
+      if (JSON.stringify(publicSection.names) !== JSON.stringify(["调月莉音", "认知修改·后宫性生活", "星野", "星熊", "星熊", "黑川澪"]))
+        publicFails.push(["author-names-public", ["调月莉音", "认知修改·后宫性生活", "星野", "星熊", "星熊", "黑川澪"], publicSection.names]);
+      if (!String(publicSection.toast).includes("公开"))
+        publicFails.push(["author-toast-public", "contains 公开", publicSection.toast]);
       for (const [check, expected, actual] of publicFails) {
         rows.push(
           await captureFailure(page, browserName, viewport, "author-switch-public", { check, expected, actual }, consoleErrors)

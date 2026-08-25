@@ -30,8 +30,6 @@ jobs:
           node --check src/app.js
           node --check src/data/works.js
           node --check src/data/details-fanhua.js
-          node --check src/data/details-shark.js
-          node --check src/data/details-wa.js
           node --check src/data/details-public.js
 
       - run: npm run validate:assets

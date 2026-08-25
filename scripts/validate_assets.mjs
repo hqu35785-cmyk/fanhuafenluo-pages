@@ -85,13 +85,16 @@ function walkWebpFiles(dir) {
 async function main() {
   const source = fs.readFileSync(DATA, "utf8");
   const latest = extractArray(source, "latestFanhuaWorks");
+  const publicWorks = [
+    ...extractArray(source, "publicWorks"),
+    ...extractArray(source, "legacySharkWorks"),
+    ...extractArray(source, "legacyWaWorks"),
+  ];
   const authors = [
     { name: "繁花·纷落", works: [...latest, ...extractArray(source, "fanhuaWorks")] },
-    { name: "鲨鱼", works: extractArray(source, "sharkWorks") },
-    { name: "咓", works: extractArray(source, "waWorks") },
-    { name: "公开", works: extractArray(source, "publicWorks") },
+    { name: "公开", works: publicWorks },
   ];
-  const expectedCounts = { "繁花·纷落": 70, "鲨鱼": 14, "咓": 14, "公开": 3 };
+  const expectedCounts = { "繁花·纷落": 70, "公开": 31 };
   const counts = Object.fromEntries(authors.map((author) => [author.name, author.works.length]));
   if (JSON.stringify(counts) !== JSON.stringify(expectedCounts)) fail(`counts ${JSON.stringify(counts)}`);
   const works = authors.flatMap((author) => author.works);
