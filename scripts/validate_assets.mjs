@@ -89,8 +89,9 @@ async function main() {
     { name: "繁花·纷落", works: [...latest, ...extractArray(source, "fanhuaWorks")] },
     { name: "鲨鱼", works: extractArray(source, "sharkWorks") },
     { name: "咓", works: extractArray(source, "waWorks") },
+    { name: "公开", works: extractArray(source, "publicWorks") },
   ];
-  const expectedCounts = { "繁花·纷落": 70, "鲨鱼": 14, "咓": 14 };
+  const expectedCounts = { "繁花·纷落": 70, "鲨鱼": 14, "咓": 14, "公开": 3 };
   const counts = Object.fromEntries(authors.map((author) => [author.name, author.works.length]));
   if (JSON.stringify(counts) !== JSON.stringify(expectedCounts)) fail(`counts ${JSON.stringify(counts)}`);
   const works = authors.flatMap((author) => author.works);
@@ -101,6 +102,11 @@ async function main() {
   if (!fs.readFileSync(APP, "utf8").includes("const PREVIEW_LOAD_CONCURRENCY=3;")) fail("preview concurrency is not 3");
 
   const newNames = new Set(["刻律德菈", "云璃", "雾矢葵"]);
+  const publicAssets = new Map([
+    ["assets/public/Public_%E8%B0%83%E6%9C%88%E8%8E%89%E9%9F%B3_0BB6.png", "调月莉音"],
+    ["assets/public/Public_%E8%AE%A4%E7%9F%A5%E4%BF%AE%E6%94%B9%C2%B7%E5%90%8E%E5%AE%AB%E6%80%A7%E7%94%9F%E6%B4%BB_14FA.png", "认知修改·后宫性生活"],
+    ["assets/public/Public_%E6%98%9F%E9%87%8E_1BB2.png", "星野"],
+  ]);
   const expectedPreviews = new Set();
   let sourceBytes = 0;
   let previewBytes = 0;
@@ -114,19 +120,21 @@ async function main() {
     if (!png.toLowerCase().endsWith(".png") || !webp.toLowerCase().endsWith(".webp")) fail(`bad extension ${work.name}`);
     const pngInfo = pngState(png);
     if (pngInfo.charaCount === 1) completeChara += 1;
-    if (newNames.has(work.name)) {
+    const publicAssetName = publicAssets.get(work.image);
+    if (newNames.has(work.name) || publicAssetName) {
       if (pngInfo.charaCount !== 1) fail(`new PNG must have exactly one chara chunk ${work.name}`);
       const decoded = decodeChara(pngInfo.charaPayloads[0]);
       const embeddedName = decoded?.data?.name || decoded?.name || "";
       const embeddedCreator = decoded?.data?.creator || decoded?.creator || "";
-      if (embeddedName !== work.name) fail(`embedded name mismatch ${work.name}/${embeddedName}`);
+      if (embeddedName !== (publicAssetName || work.name)) fail(`embedded name mismatch ${work.name}/${embeddedName}`);
       if (embeddedCreator !== "『繁花·纷落』") fail(`embedded creator mismatch ${work.name}/${embeddedCreator}`);
       newAssetReport.push({ name: work.name, sha256: sha256(png), embeddedName, embeddedCreator });
     }
     const meta = await sharp(webp).metadata();
     if (meta.format !== "webp" || !meta.width || !meta.height) fail(`WebP cannot be decoded ${webp}`);
-    const maxWidth = newNames.has(work.name) ? 640 : 960;
-    const maxHeight = newNames.has(work.name) ? 960 : 1440;
+    const compactPreview = newNames.has(work.name) || Boolean(publicAssetName);
+    const maxWidth = compactPreview ? 640 : 960;
+    const maxHeight = compactPreview ? 960 : 1440;
     if (meta.width > maxWidth || meta.height > maxHeight) fail(`WebP exceeds ${maxWidth}x${maxHeight} ${webp}`);
     if (fs.statSync(webp).size > 200 * 1024) fail(`WebP exceeds 200 KiB ${webp}`);
     expectedPreviews.add(webp);

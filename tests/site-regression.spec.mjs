@@ -56,6 +56,7 @@ test("open visibility mode renders the approved sections and latest-first order"
     { name: "繁花·纷落", count: 70, first: ["刻律德菈", "云璃", "雾矢葵", "许知予", "八尺大姐姐", "康娜"] },
     { name: "鲨鱼", count: 14 },
     { name: "咓", count: 14 },
+    { name: "公开", count: 3, first: ["调月莉音", "认知修改·后宫性生活", "星野"] },
   ];
   const switcher = page.locator("#authorSwitch");
   for (let round = 0; round < 2; round += 1) {

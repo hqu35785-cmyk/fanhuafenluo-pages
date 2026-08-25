@@ -13,7 +13,8 @@ const PLACEHOLDER_TEXTS = [
 const GROUPS = [
   {id:'fanhuafenluo',arrays:['latestFanhuaWorks','fanhuaWorks'],output:'src/data/details-fanhua.js'},
   {id:'shark',arrays:['sharkWorks'],output:'src/data/details-shark.js'},
-  {id:'wa',arrays:['waWorks'],output:'src/data/details-wa.js'}
+  {id:'wa',arrays:['waWorks'],output:'src/data/details-wa.js'},
+  {id:'public',arrays:['publicWorks'],output:'src/data/details-public.js'}
 ];
 
 function fail(message){
@@ -215,7 +216,7 @@ async function collectExpected(root){
     }
     groups.push({...group,records:groupRecords,count:groupRecords.length});
   }
-  if(records.length!==98) throw new Error(`角色卡总数错误：应为 98，实际为 ${records.length}`);
+  if(records.length!==101) throw new Error(`角色卡总数错误：应为 101，实际为 ${records.length}`);
   return {groups,records};
 }
 
@@ -284,7 +285,7 @@ async function verifyFiles(root,groups,intros){
   for(const key of introKeys){
     if(!expectedByKey.has(key)) throw new Error(`存在失联简介 key：${key}`);
   }
-  if(total!==98) throw new Error(`详情总数错误：应为 98，实际为 ${total}`);
+  if(total!==101) throw new Error(`详情总数错误：应为 101，实际为 ${total}`);
 }
 
 function summary({groups,records,intros}){

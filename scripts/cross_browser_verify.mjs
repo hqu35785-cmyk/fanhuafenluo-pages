@@ -697,7 +697,7 @@ async function runViewport(browserType, browserName, viewport) {
     }
     if (!layout.failures.length) pushOk("open-front", { media: layout.media, flipMode: layout.flipMode, deployment });
 
-    // 1b section switch: 繁花 → 鲨鱼(14) → 咓(14) → 繁花, unlock isolation
+    // 1b section switch: 繁花 → 鲨鱼(14) → 咓(14) → 公开(3) → 繁花, unlock isolation
     {
       await page
         .waitForFunction(() => {
@@ -822,6 +822,40 @@ async function runViewport(browserType, browserName, viewport) {
         );
       }
       if (!waFails.length) pushOk("author-switch-wa", { cards: wa.cards });
+
+      // → 公开
+      await (async () => {
+        const sw = page.locator("#authorSwitch");
+        await sw.waitFor({ state: "visible", timeout: 10000 });
+        if (browserName === "webkit") await sw.evaluate((el) => el.click());
+        else await sw.click({ timeout: 10000 });
+      })();
+      await page.waitForTimeout(350);
+      const publicSection = await page.evaluate(() => ({
+        name: document.getElementById("authorName")?.textContent || "",
+        cards: document.querySelectorAll(".card").length,
+        footer: document.getElementById("footerAuthor")?.textContent || "",
+        count: document.getElementById("workCount")?.textContent || "",
+        avatar: document.getElementById("authorAvatar")?.getAttribute("src") || "",
+        names: [...document.querySelectorAll(".card .card-name b")].map((element) => element.textContent?.trim() || ""),
+        empty: !!document.querySelector(".author-empty"),
+      }));
+      const publicFails = [];
+      if (publicSection.name !== "公开") publicFails.push(["author-name-public", "公开", publicSection.name]);
+      if (publicSection.cards !== 3) publicFails.push(["author-cards-public", 3, publicSection.cards]);
+      if (publicSection.empty) publicFails.push(["author-not-empty-public", false, publicSection.empty]);
+      if (publicSection.footer !== "公开") publicFails.push(["author-footer-public", "公开", publicSection.footer]);
+      if (publicSection.count !== "03") publicFails.push(["author-count-public", "03", publicSection.count]);
+      if (!publicSection.avatar.includes("assets/authors/public.webp"))
+        publicFails.push(["author-avatar-public", "assets/authors/public.webp", publicSection.avatar.slice(0, 60)]);
+      if (JSON.stringify(publicSection.names) !== JSON.stringify(["调月莉音", "认知修改·后宫性生活", "星野"]))
+        publicFails.push(["author-names-public", ["调月莉音", "认知修改·后宫性生活", "星野"], publicSection.names]);
+      for (const [check, expected, actual] of publicFails) {
+        rows.push(
+          await captureFailure(page, browserName, viewport, "author-switch-public", { check, expected, actual }, consoleErrors)
+        );
+      }
+      if (!publicFails.length) pushOk("author-switch-public", { cards: publicSection.cards, names: publicSection.names });
 
       // → 繁花·纷落
       await (async () => {
