@@ -86,6 +86,24 @@ const publicWorks = [
 
 const latestFanhuaWorks = [
   {
+    "name":"顾清瑶",
+    "alias":"TAVO · 146D",
+    "collectionLabel":"TAVO ROLE CARD",
+    "image":"assets/tavo/new/Tavo_%E9%A1%BE%E6%B8%85%E7%91%B6_146D.png",
+    "createdAt":"2026-09-03",
+    "preview":"assets/previews/tavo/new/Tavo_%E9%A1%BE%E6%B8%85%E7%91%B6_146D.webp",
+    "previewPosition":"50% 8%",
+    "role":"兄妹占有 · 用身体换来哥哥身边清场的优等生",
+    "tags":["兄妹占有"],
+    "cardLabel":"兄妹占有",
+    "creator":"繁花·纷落",
+    "sensitive":true,
+    "sensitiveSetting":false,
+    "sensitiveLabel":"敏感卡面",
+    "sensitiveSettingLabel":"敏感设定",
+    "_detailKey":"assets/tavo/new/Tavo_%E9%A1%BE%E6%B8%85%E7%91%B6_146D.png"
+  },
+  {
     "name":"刻律德菈",
     "alias":"TAVO · 7B5E",
     "collectionLabel":"TAVO ROLE CARD",
@@ -191,7 +209,7 @@ function loadScriptOnce(src){
       return;
     }
     const s = document.createElement("script");
-    s.src = src + (src.includes("?") ? "&" : "?") + "v=6a258ce3f87a";
+    s.src = src + (src.includes("?") ? "&" : "?") + "v=cd33ef6eeb48";
     s.async = true;
     s.dataset.lazySrc = src;
     s.onload = () => { s.dataset.loaded = "1"; resolve(); };
