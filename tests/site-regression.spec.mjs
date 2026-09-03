@@ -53,7 +53,7 @@ test("open visibility mode renders the approved sections and latest-first order"
   await expect(firstCard.locator(".privacy-unlock")).toHaveAttribute("data-mode", "save");
 
   const expected = [
-    { name: "繁花·纷落", count: 70, first: ["刻律德菈", "云璃", "雾矢葵", "许知予", "八尺大姐姐", "康娜"] },
+    { name: "繁花·纷落", count: 71, first: ["顾清瑶", "刻律德菈", "云璃", "雾矢葵", "许知予", "八尺大姐姐"] },
     { name: "公开", count: 31, first: ["调月莉音", "认知修改·后宫性生活", "星野", "星熊", "星熊", "黑川澪"] },
   ];
   const switcher = page.locator("#authorSwitch");

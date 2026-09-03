@@ -39,7 +39,7 @@ async function inspect(page) {
 function failuresFor(state, value) {
   const failures = [];
   if (value.visibility !== "open") failures.push({ check: `${state}-open-mode`, expected: "open", actual: value.visibility });
-  if (value.cards !== 70) failures.push({ check: `${state}-count`, expected: 70, actual: value.cards });
+  if (value.cards !== 71) failures.push({ check: `${state}-count`, expected: 71, actual: value.cards });
   if (value.rootOverflow) failures.push({ check: `${state}-root-overflow`, expected: false, actual: true });
   if (!value.firstVisible) failures.push({ check: `${state}-first-card-visible`, expected: true, actual: false });
   return failures;

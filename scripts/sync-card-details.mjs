@@ -219,7 +219,7 @@ async function collectExpected(root){
     }
     groups.push({...group,records:groupRecords,count:groupRecords.length});
   }
-  if(records.length!==101) throw new Error(`角色卡总数错误：应为 101，实际为 ${records.length}`);
+  if(records.length!==102) throw new Error(`角色卡总数错误：应为 102，实际为 ${records.length}`);
   return {groups,records};
 }
 
@@ -288,7 +288,7 @@ async function verifyFiles(root,groups,intros){
   for(const key of introKeys){
     if(!expectedByKey.has(key)) throw new Error(`存在失联简介 key：${key}`);
   }
-  if(total!==101) throw new Error(`详情总数错误：应为 101，实际为 ${total}`);
+  if(total!==102) throw new Error(`详情总数错误：应为 102，实际为 ${total}`);
 }
 
 async function verifyStaleOutputsAbsent(root){
