@@ -94,7 +94,7 @@ async function main() {
     { name: "繁花·纷落", works: [...latest, ...extractArray(source, "fanhuaWorks")] },
     { name: "公开", works: publicWorks },
   ];
-  const expectedCounts = { "繁花·纷落": 71, "公开": 31 };
+  const expectedCounts = { "繁花·纷落": 71, "公开": 32 };
   const counts = Object.fromEntries(authors.map((author) => [author.name, author.works.length]));
   if (JSON.stringify(counts) !== JSON.stringify(expectedCounts)) fail(`counts ${JSON.stringify(counts)}`);
   const works = authors.flatMap((author) => author.works);
@@ -104,11 +104,12 @@ async function main() {
   if (new Set(images).size !== images.length) fail("duplicate source image path");
   if (!fs.readFileSync(APP, "utf8").includes("const PREVIEW_LOAD_CONCURRENCY=3;")) fail("preview concurrency is not 3");
 
-  const newNames = new Set(["顾清瑶", "刻律德菈", "云璃", "雾矢葵"]);
+  const newNames = new Set(["顾清瑶", "刻律德菈", "云璃", "雾矢葵", "清若寒"]);
   const publicAssets = new Map([
     ["assets/public/Public_%E8%B0%83%E6%9C%88%E8%8E%89%E9%9F%B3_0BB6.png", "调月莉音"],
     ["assets/public/Public_%E8%AE%A4%E7%9F%A5%E4%BF%AE%E6%94%B9%C2%B7%E5%90%8E%E5%AE%AB%E6%80%A7%E7%94%9F%E6%B4%BB_14FA.png", "认知修改·后宫性生活"],
     ["assets/public/Public_%E6%98%9F%E9%87%8E_1BB2.png", "星野"],
+    ["assets/public/Public_%E6%B8%85%E8%8B%A5%E5%AF%92_2E4F.png", "清若寒"],
   ]);
   const expectedPreviews = new Set();
   let sourceBytes = 0;

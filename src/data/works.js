@@ -81,6 +81,23 @@ const publicWorks = [
     "sensitiveLabel":"敏感卡面",
     "sensitiveSettingLabel":"敏感设定",
     "_detailKey":"assets/public/Public_%E6%98%9F%E9%87%8E_1BB2.png"
+  },
+  {
+    "name":"清若寒",
+    "alias":"PUBLIC · 2E4F",
+    "collectionLabel":"PUBLIC ROLE CARD",
+    "image":"assets/public/Public_%E6%B8%85%E8%8B%A5%E5%AF%92_2E4F.png",
+    "preview":"assets/previews/public/Public_%E6%B8%85%E8%8B%A5%E5%AF%92_2E4F.webp",
+    "previewPosition":"50% 8%",
+    "role":"冷淡师父 · 暴雨夜里等你敲门",
+    "tags":["冷淡师父"],
+    "cardLabel":"冷淡师父",
+    "creator":"繁花·纷落",
+    "sensitive":true,
+    "sensitiveSetting":false,
+    "sensitiveLabel":"敏感卡面",
+    "sensitiveSettingLabel":"敏感设定",
+    "_detailKey":"assets/public/Public_%E6%B8%85%E8%8B%A5%E5%AF%92_2E4F.png"
   }
 ];
 
@@ -209,7 +226,7 @@ function loadScriptOnce(src){
       return;
     }
     const s = document.createElement("script");
-    s.src = src + (src.includes("?") ? "&" : "?") + "v=cd33ef6eeb48";
+    s.src = src + (src.includes("?") ? "&" : "?") + "v=13fb8e885dea";
     s.async = true;
     s.dataset.lazySrc = src;
     s.onload = () => { s.dataset.loaded = "1"; resolve(); };
