@@ -30,7 +30,7 @@ if (!fs.existsSync(INDEX)) fail("_site/index.html is missing");
 const html = fs.readFileSync(INDEX, "utf8");
 for (const file of files(SITE, ".png")) fail(`full PNG leaked into Pages artifact: ${file}`);
 const previewFiles = files(path.join(SITE, "assets", "previews"), ".webp");
-if (previewFiles.length !== 102) fail(`expected 102 preview WebPs, found ${previewFiles.length}`);
+if (previewFiles.length !== 103) fail(`expected 103 preview WebPs, found ${previewFiles.length}`);
 for (const file of files(path.join(SITE, "src"), ".js")) {
   const result = spawnSync(process.execPath, ["--check", file], { encoding: "utf8" });
   if (result.status !== 0) fail(`Pages JavaScript syntax error: ${file}\n${result.stderr}`);

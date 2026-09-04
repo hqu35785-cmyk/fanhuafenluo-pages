@@ -780,14 +780,14 @@ async function runViewport(browserType, browserName, viewport) {
       }));
       const publicFails = [];
       if (publicSection.name !== "公开") publicFails.push(["author-name-public", "公开", publicSection.name]);
-      if (publicSection.cards !== 31) publicFails.push(["author-cards-public", 31, publicSection.cards]);
+      if (publicSection.cards !== 32) publicFails.push(["author-cards-public", 32, publicSection.cards]);
       if (publicSection.empty) publicFails.push(["author-not-empty-public", false, publicSection.empty]);
       if (publicSection.footer !== "公开") publicFails.push(["author-footer-public", "公开", publicSection.footer]);
-      if (publicSection.count !== "31") publicFails.push(["author-count-public", "31", publicSection.count]);
+      if (publicSection.count !== "32") publicFails.push(["author-count-public", "32", publicSection.count]);
       if (!publicSection.avatar.includes("assets/authors/public.webp"))
         publicFails.push(["author-avatar-public", "assets/authors/public.webp", publicSection.avatar.slice(0, 60)]);
-      if (JSON.stringify(publicSection.names) !== JSON.stringify(["调月莉音", "认知修改·后宫性生活", "星野", "星熊", "星熊", "黑川澪"]))
-        publicFails.push(["author-names-public", ["调月莉音", "认知修改·后宫性生活", "星野", "星熊", "星熊", "黑川澪"], publicSection.names]);
+      if (JSON.stringify(publicSection.names) !== JSON.stringify(["调月莉音", "认知修改·后宫性生活", "星野", "清若寒", "星熊", "星熊"]))
+        publicFails.push(["author-names-public", ["调月莉音", "认知修改·后宫性生活", "星野", "清若寒", "星熊", "星熊"], publicSection.names]);
       if (!String(publicSection.toast).includes("公开"))
         publicFails.push(["author-toast-public", "contains 公开", publicSection.toast]);
       for (const [check, expected, actual] of publicFails) {

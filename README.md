@@ -1,6 +1,6 @@
 # 繁花·纷落｜角色档案
 
-两个分区、共 102 张角色卡的静态档案站，部署于 GitHub Pages。
+两个分区、共 103 张角色卡的静态档案站，部署于 GitHub Pages。
 
 - 在线网站：<https://hqu35785-cmyk.github.io/fanhuafenluo-pages/>
 - 源代码仓库：<https://github.com/hqu35785-cmyk/fanhuafenluo-pages>
@@ -23,14 +23,14 @@
 
 ```text
 繁花·纷落  71
-公开        31
-总计       102
+公开        32
+总计       103
 ```
 
-`公开` 的 31 张固定按以下顺序组成：
+`公开` 的 32 张固定按以下顺序组成：
 
 ```text
-publicWorks          新加入公开分区的 3 张
+publicWorks          新加入公开分区的 4 张
 legacySharkWorks     原鲨鱼分区的 14 张
 legacyWaWorks        原咓分区的 14 张
 ```
