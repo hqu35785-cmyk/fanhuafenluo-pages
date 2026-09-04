@@ -640,7 +640,7 @@ async function runViewport(browserType, browserName, viewport) {
     }));
     const openFailures = [];
     if (openContract.visibility !== "open") openFailures.push(["open-mode-dataset", "open", openContract.visibility]);
-    if (openContract.cards !== 71) openFailures.push(["open-mode-fanhua-count", 71, openContract.cards]);
+    if (openContract.cards !== 72) openFailures.push(["open-mode-fanhua-count", 72, openContract.cards]);
     if (!openContract.unlockAllHidden || !openContract.unlockAllInert) {
       openFailures.push(["open-mode-unlock-all-hidden", { hidden: true, inert: true }, openContract]);
     }
@@ -780,14 +780,14 @@ async function runViewport(browserType, browserName, viewport) {
       }));
       const publicFails = [];
       if (publicSection.name !== "公开") publicFails.push(["author-name-public", "公开", publicSection.name]);
-      if (publicSection.cards !== 32) publicFails.push(["author-cards-public", 32, publicSection.cards]);
+      if (publicSection.cards !== 31) publicFails.push(["author-cards-public", 31, publicSection.cards]);
       if (publicSection.empty) publicFails.push(["author-not-empty-public", false, publicSection.empty]);
       if (publicSection.footer !== "公开") publicFails.push(["author-footer-public", "公开", publicSection.footer]);
-      if (publicSection.count !== "32") publicFails.push(["author-count-public", "32", publicSection.count]);
+      if (publicSection.count !== "31") publicFails.push(["author-count-public", "31", publicSection.count]);
       if (!publicSection.avatar.includes("assets/authors/public.webp"))
         publicFails.push(["author-avatar-public", "assets/authors/public.webp", publicSection.avatar.slice(0, 60)]);
-      if (JSON.stringify(publicSection.names) !== JSON.stringify(["调月莉音", "认知修改·后宫性生活", "星野", "清若寒", "星熊", "星熊"]))
-        publicFails.push(["author-names-public", ["调月莉音", "认知修改·后宫性生活", "星野", "清若寒", "星熊", "星熊"], publicSection.names]);
+      if (JSON.stringify(publicSection.names) !== JSON.stringify(["调月莉音", "认知修改·后宫性生活", "星野", "星熊", "星熊", "黑川澪"]))
+        publicFails.push(["author-names-public", ["调月莉音", "认知修改·后宫性生活", "星野", "星熊", "星熊", "黑川澪"], publicSection.names]);
       if (!String(publicSection.toast).includes("公开"))
         publicFails.push(["author-toast-public", "contains 公开", publicSection.toast]);
       for (const [check, expected, actual] of publicFails) {
@@ -842,7 +842,7 @@ async function runViewport(browserType, browserName, viewport) {
       }, initialAuthorAvatarSrc);
       const backFails = [];
       if (back.name !== "繁花·纷落") backFails.push(["author-name-fanhua", "繁花·纷落", back.name]);
-      if (back.cards !== 71) backFails.push(["author-cards-restored", 71, back.cards]);
+      if (back.cards !== 72) backFails.push(["author-cards-restored", 72, back.cards]);
       if (back.empty) backFails.push(["author-not-empty", false, back.empty]);
       if (back.footer !== "繁花·纷落") backFails.push(["author-footer-fanhua", "繁花·纷落", back.footer]);
       if (!back.authorAvatarRestored) {
@@ -858,8 +858,8 @@ async function runViewport(browserType, browserName, viewport) {
           },
         ]);
       }
-  if (back.unlockedFaces !== 71)
-    backFails.push(["author-open-faces-restored", 71, back.unlockedFaces]);
+  if (back.unlockedFaces !== 72)
+    backFails.push(["author-open-faces-restored", 72, back.unlockedFaces]);
       for (const [check, expected, actual] of backFails) {
         rows.push(
           await captureFailure(page, browserName, viewport, "author-switch-back", { check, expected, actual }, consoleErrors)
@@ -877,7 +877,7 @@ async function runViewport(browserType, browserName, viewport) {
         name: document.getElementById("authorName")?.textContent || "",
         cards: document.querySelectorAll(".card").length,
       }));
-      if (afterReload.name !== "繁花·纷落" || afterReload.cards !== 71) {
+      if (afterReload.name !== "繁花·纷落" || afterReload.cards !== 72) {
         rows.push(
           await captureFailure(
             page,
@@ -886,7 +886,7 @@ async function runViewport(browserType, browserName, viewport) {
             "author-refresh-default",
             {
               check: "author-refresh-default",
-              expected: "繁花·纷落 with 71 cards",
+              expected: "繁花·纷落 with 72 cards",
               actual: afterReload,
             },
             consoleErrors
@@ -909,7 +909,7 @@ async function runViewport(browserType, browserName, viewport) {
     }));
     const openAfterSwitchFailures = [];
     if (openAfterSwitch.visibility !== "open") openAfterSwitchFailures.push(["open-mode-after-switch", "open", openAfterSwitch.visibility]);
-    if (openAfterSwitch.cards !== 71) openAfterSwitchFailures.push(["open-mode-after-switch-count", 71, openAfterSwitch.cards]);
+    if (openAfterSwitch.cards !== 72) openAfterSwitchFailures.push(["open-mode-after-switch-count", 72, openAfterSwitch.cards]);
     if (!openAfterSwitch.unlockAllHidden || !openAfterSwitch.unlockChoiceHidden) {
       openAfterSwitchFailures.push(["open-mode-controls-after-switch", { unlockAllHidden: true, unlockChoiceHidden: true }, openAfterSwitch]);
     }
