@@ -13,7 +13,7 @@
 - `src/styles/main.css`：页面样式。
 - `assets/previews/`：网页展示使用的轻量预览。
 - `assets/authors/`：作者/分区头像。
-- `assets/tavo/`、`assets/shark/`、`assets/wa/`、`assets/public/`、`assets/source/`：角色卡源 PNG。它们不随 Pages artifact 全量发布，但保存角色卡时会按需从仓库/CDN读取，因此不能仅因体积大而删除。
+- `assets/tavo/`、`assets/shark/`、`assets/wa/`、`assets/public/`、`assets/source/`：角色卡源 PNG（103 张，约 314 MB）。它们随 Pages artifact 一起发布，展示页保存角色卡时优先从 github.io 同源地址直接下载，jsDelivr / GitHub Raw 只作备用；不能仅因体积大而删除或排除出 Pages。
 - `scripts/`：长期构建、资源验证、跨浏览器验证和图片维护工具。
 - `tests/`：站点回归测试。
 

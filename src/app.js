@@ -587,8 +587,8 @@ let webSharePending=false;
 let webShareWatchdog=0;
 
 /*
- * Full card PNGs are multi-hundred MB in aggregate and cannot ship with Pages
- * reliably. Resolve on demand with a short fallback chain (local → jsDelivr → raw).
+ * Full card PNGs ship with Pages, so the local copy is tried first; jsDelivr and
+ * raw stay as fallbacks (local → jsDelivr → raw).
  */
 const SOURCE_PNG_RE=/^(?:\.\/)?assets\/(?:tavo|shark|wa|source)\//i;
 const REPO_MAIN_REF="hqu35785-cmyk/fanhuafenluo-pages@main";

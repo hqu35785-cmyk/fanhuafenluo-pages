@@ -28,7 +28,16 @@ function files(dir, extension) {
 
 if (!fs.existsSync(INDEX)) fail("_site/index.html is missing");
 const html = fs.readFileSync(INDEX, "utf8");
-for (const file of files(SITE, ".png")) fail(`full PNG leaked into Pages artifact: ${file}`);
+const worksSource = fs.readFileSync(path.join(ROOT, "src", "data", "works.js"), "utf8");
+const pngImages = [...worksSource.matchAll(/"image":"(assets\/[^"]+\.png)"/g)].map((match) => match[1]);
+if (pngImages.length !== 103) fail(`expected 103 card PNGs in works.js, found ${pngImages.length}`);
+for (const image of pngImages) {
+  const file = path.join(SITE, decodeURI(image));
+  if (!fs.existsSync(file)) fail(`card PNG missing from Pages artifact: ${file}`);
+  if (fs.statSync(file).size !== fs.statSync(path.join(ROOT, decodeURI(image))).size) fail(`card PNG differs from repository copy: ${file}`);
+}
+const pngFiles = files(SITE, ".png");
+if (pngFiles.length !== pngImages.length) fail(`expected ${pngImages.length} PNGs in Pages artifact, found ${pngFiles.length}`);
 const previewFiles = files(path.join(SITE, "assets", "previews"), ".webp");
 if (previewFiles.length !== 103) fail(`expected 103 preview WebPs, found ${previewFiles.length}`);
 for (const file of files(path.join(SITE, "src"), ".js")) {
@@ -45,4 +54,4 @@ for (const match of html.matchAll(/(?:src|href)="(src|assets)\/([^"?#]+)(?:\?[^"
   const file = path.join(SITE, match[1], decodeURI(match[2]));
   if (!fs.existsSync(file)) fail(`HTML references missing Pages file: ${file}`);
 }
-console.log(JSON.stringify({ ok: true, previewCount: previewFiles.length, pngCount: 0, cssHash, dataHash, appHash }, null, 2));
+console.log(JSON.stringify({ ok: true, previewCount: previewFiles.length, pngCount: pngFiles.length, cssHash, dataHash, appHash }, null, 2));
